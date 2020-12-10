@@ -12,9 +12,18 @@ class TestAddGroup(unittest.TestCase):
     def test_add_group(self):
         wd = self.wd
         self.Открытие_главной_страницы(wd)
-        self.Введение_Логина_Пароля(wd)
+        self.Введение_Логина_Пароля(wd, username="admin", password="secret")
         self.Открываем_страницу_со_списоком_Групп(wd)
-        self.Создаем_и_Заполняем_форму_Группа(wd)
+        self.Создаем_и_Заполняем_форму_Группа(wd, name="test1", header="test",footer="test")
+        self.Возвращаемся_на_страницу_со_списком_Групп(wd)
+        self.Выходим_из_программы(wd)
+
+    def test_add_empty_group(self):
+        wd = self.wd
+        self.Открытие_главной_страницы(wd)
+        self.Введение_Логина_Пароля(wd, username="admin", password="secret")
+        self.Открываем_страницу_со_списоком_Групп(wd)
+        self.Создаем_и_Заполняем_форму_Группа(wd, name="", header="",footer="")
         self.Возвращаемся_на_страницу_со_списком_Групп(wd)
         self.Выходим_из_программы(wd)
 
@@ -24,32 +33,32 @@ class TestAddGroup(unittest.TestCase):
     def Возвращаемся_на_страницу_со_списком_Групп(self, wd):
         wd.find_element_by_link_text("group page").click()
 
-    def Создаем_и_Заполняем_форму_Группа(self, wd):
+    def Создаем_и_Заполняем_форму_Группа(self, wd, name, header, footer):
         # Нажимаем_на_создание_Группы
         wd.find_element_by_name("new").click()
         #Заполняем_форму_Группа
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys("test1")
+        wd.find_element_by_name("group_name").send_keys(name)
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys("test")
+        wd.find_element_by_name("group_header").send_keys(header)
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys("test")
+        wd.find_element_by_name("group_footer").send_keys(footer)
         # Нажимаем_Создать_Группу
         wd.find_element_by_name("submit").click()
 
     def Открываем_страницу_со_списоком_Групп(self, wd):
         wd.find_element_by_link_text("groups").click()
 
-    def Введение_Логина_Пароля(self, wd: object) -> object:
+    def Введение_Логина_Пароля(self, wd: object, username, password) -> object:
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys("admin")
+        wd.find_element_by_name("user").send_keys(username)
         wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys("secret")
+        wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
     def Открытие_главной_страницы(self, wd: object) -> object:
