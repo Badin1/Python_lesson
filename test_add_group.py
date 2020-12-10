@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
+from group import Group
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
@@ -14,7 +15,7 @@ class TestAddGroup(unittest.TestCase):
         self.Открытие_главной_страницы(wd)
         self.Введение_Логина_Пароля(wd, username="admin", password="secret")
         self.Открываем_страницу_со_списоком_Групп(wd)
-        self.Создаем_и_Заполняем_форму_Группа(wd, name="test1", header="test",footer="test")
+        self.Создаем_и_Заполняем_форму_Группа(wd, Group (name="test1", header="test",footer="test"))
         self.Возвращаемся_на_страницу_со_списком_Групп(wd)
         self.Выходим_из_программы(wd)
 
@@ -23,7 +24,7 @@ class TestAddGroup(unittest.TestCase):
         self.Открытие_главной_страницы(wd)
         self.Введение_Логина_Пароля(wd, username="admin", password="secret")
         self.Открываем_страницу_со_списоком_Групп(wd)
-        self.Создаем_и_Заполняем_форму_Группа(wd, name="", header="",footer="")
+        self.Создаем_и_Заполняем_форму_Группа(wd, Group (name="", header="",footer=""))
         self.Возвращаемся_на_страницу_со_списком_Групп(wd)
         self.Выходим_из_программы(wd)
 
@@ -33,19 +34,19 @@ class TestAddGroup(unittest.TestCase):
     def Возвращаемся_на_страницу_со_списком_Групп(self, wd):
         wd.find_element_by_link_text("group page").click()
 
-    def Создаем_и_Заполняем_форму_Группа(self, wd, name, header, footer):
+    def Создаем_и_Заполняем_форму_Группа(self, wd, group):
         # Нажимаем_на_создание_Группы
         wd.find_element_by_name("new").click()
         #Заполняем_форму_Группа
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(name)
+        wd.find_element_by_name("group_name").send_keys(group.name)
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(header)
+        wd.find_element_by_name("group_header").send_keys(group.header)
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(footer)
+        wd.find_element_by_name("group_footer").send_keys(group.footer)
         # Нажимаем_Создать_Группу
         wd.find_element_by_name("submit").click()
 
