@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
-from group import New
+from add_new import Add_New
 
 class TestAddNew(unittest.TestCase):
     def setUp(self):
@@ -15,7 +15,7 @@ class TestAddNew(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.open_new_page(wd)
-        self.create_new(wd, New(firstname="Petrov",lastname="Petr", address="Moscow", telephone="8-905-323-50-26", email="petrov@yandex.ru"))
+        self.create_new(wd, Add_New(firstname="Petrov",lastname="Petr", address="Moscow", telephone="8-905-323-50-26", email="petrov@yandex.ru"))
         self.return_home_page(wd)
         self.logout(wd)
 
