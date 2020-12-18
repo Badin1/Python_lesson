@@ -1,15 +1,15 @@
 
 class ContactHelper:
 
-    def __init__(self, appn):
-        self.appn = appn
+    def __init__(self, app):
+        self.app = app
 
     def open_new_page(self):
-        wd = self.appn.wd
+        wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
-    def create(self, new):
-        wd = self.appn.wd
+    def create_new(self, new):
+        wd = self.app.wd
         self.open_new_page()
         # fill new firm
         wd.find_element_by_name("firstname").click()
@@ -31,6 +31,14 @@ class ContactHelper:
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         self.return_home_page()
 
+    # def test_delete_first_new(self):
+    #     wd = self.app.wd
+    #     # Выбрать первый контакт
+    #     wd.find_element_by_name("selected[]").click()
+    #     # Удалить контакт
+    #     wd.find_element_by_value("Delete").click()
+    #     self.return_home_page()
+
     def return_home_page(self):
-        wd = self.appn.wd
+        wd = self.app.wd
         wd.find_element_by_link_text("home").click()
