@@ -1,6 +1,6 @@
 from selenium import webdriver
 from fixture.session import SessionHelper
-
+from fixture.group import GroupHelper
 
 
 class Application:
@@ -8,14 +8,14 @@ class Application:
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
         self.session = SessionHelper(self)
-
+        self.group = GroupHelper(self)
 
 
     def return_to_groups_page(self):
         wd = self.wd
         wd.find_element_by_link_text("group page").click()
 
-    def create_group(self, group):
+    def create(self, group):
         wd = self.wd
         self.open_group_page()
         # Нажимаем_на_создание_Группы
